@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepika Bandaru - Interactive Resume</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Slate -->
+    <!-- Application Structure Plan: A single-page, vertical-scrolling SPA with a sticky top navigation bar for quick access to key sections (Summary, Experience, Skills, Education, Projects). This structure transforms the linear resume into an interactive dashboard, allowing non-linear exploration. For example, a recruiter can jump directly to 'Skills' to see a visual breakdown or 'Projects' to view portfolio items, which is more efficient than scrolling through a document. The combination of a timeline for experience and an interactive chart for skills makes the experience more engaging and modern. -->
+    <!-- Visualization & Content Choices: 
+        - Experience: Report Info -> Job History -> Goal: Show career progression -> Viz/Presentation Method: Vertical Timeline -> Interaction: Clickable items on a timeline -> Justification: Intuitively represents chronological progression and focuses attention. -> Library/Method: HTML/CSS/JS.
+        - Skills: Report Info -> Technical Skills List -> Goal: Compare proficiency -> Viz/Presentation Method: Horizontal Bar Chart -> Interaction: Hover to see details/values -> Justification: Provides a quick, visual comparison of technical abilities, more impactful than a static list. -> Library/Method: Chart.js (Canvas).
+        - Projects: Report Info -> Project List -> Goal: Organize portfolio -> Viz/Presentation Method: Card Grid -> Interaction: Hover for subtle animation/highlight -> Justification: A clean, modern, and scannable way to display a portfolio of work. -> Library/Method: HTML/CSS/JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4; /* Warm Neutral Background */
+            color: #4A4A4A;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #D9534F; /* Subtle Accent */
+            border-bottom-color: #D9534F;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            left: -0.5rem;
+            top: 0.25rem;
+            background-color: #D9534F;
+            border: 3px solid #F8F7F4;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-slate-800">Deepika Bandaru</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#summary" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Summary</a>
+                <a href="#experience" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Experience</a>
+                <a href="#skills" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Skills</a>
+                <a href="#education" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Education</a>
+                <a href="#projects" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Projects</a>
+            </div>
+            <a href="mailto:deepikabandaru224@gmail.com" class="bg-slate-800 text-white px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors hidden md:block">Contact Me</a>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="summary" class="my-16 text-center">
+            <h2 class="text-4xl font-bold text-slate-800 mb-4">Professional Summary</h2>
+            <p class="max-w-3xl mx-auto text-lg leading-relaxed text-slate-600">
+                This section introduces Deepika's professional profile. She is a highly motivated and results-oriented individual with a diverse background in both technology and manufacturing. She is actively seeking a challenging role to leverage her technical and leadership skills, aiming to contribute to innovative projects in a dynamic environment. Her goal is to learn from experienced professionals and gain valuable experience.
+            </p>
+        </section>
+
+        <section id="experience" class="my-24">
+            <h2 class="text-3xl font-bold text-center text-slate-800 mb-12">Career Journey</h2>
+            <div class="max-w-3xl mx-auto">
+                 <p class="text-center text-slate-600 mb-12">
+                    Here you can explore Deepika's work experience in a chronological timeline. Her time at Yokohama Off-Highway Tyres provided her with hands-on experience in a manufacturing setting, both as an operator and a team leader, highlighting her versatility and leadership capabilities.
+                </p>
+                <div class="relative border-l-2 border-slate-300 ml-2">
+                    <div class="mb-12 ml-8 timeline-item">
+                        <h3 class="text-xl font-bold text-slate-800">Sdwt Leader</h3>
+                        <p class="text-md text-slate-600">Yokohama Off-Highway Tyres, Atchuthapuram</p>
+                        <p class="text-sm text-slate-500 mb-2">8 Months</p>
+                        <p class="text-slate-700">Led a team as a Sdwt (Safety, Quality, Delivery, and Teamwork) leader, ensuring production targets and safety standards were met.</p>
+                    </div>
+                    <div class="ml-8 timeline-item">
+                        <h3 class="text-xl font-bold text-slate-800">Machine Operator</h3>
+                        <p class="text-md text-slate-600">Yokohama Off-Highway Tyres, Atchuthapuram</p>
+                        <p class="text-sm text-slate-500 mb-2">1 year, 4 months</p>
+                        <p class="text-slate-700">Operated and maintained a 3-roll Calendar machine in a production environment, gaining valuable experience in industrial processes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="my-24 bg-white rounded-2xl p-8 md:p-12 shadow-lg">
+            <h2 class="text-3xl font-bold text-center text-slate-800 mb-4">Core Competencies</h2>
+            <p class="text-center text-slate-600 mb-12 max-w-3xl mx-auto">
+                This section provides a visual and categorized overview of Deepika's skills. The interactive chart below visualizes her technical proficiency, allowing you to quickly gauge her capabilities in key areas. Hover over the bars to see the proficiency level. Her behavioral skills, which are crucial for teamwork and initiative, are listed alongside.
+            </p>
+            <div class="grid md:grid-cols-3 gap-12 items-center">
+                <div class="md:col-span-2">
+                    <div class="chart-container">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 text-center md:text-left">Behavioral Skills</h3>
+                    <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+                        <span class="bg-slate-200 text-slate-800 px-4 py-2 rounded-full font-medium">Communication</span>
+                        <span class="bg-slate-200 text-slate-800 px-4 py-2 rounded-full font-medium">Fast Learner</span>
+                        <span class="bg-slate-200 text-slate-800 px-4 py-2 rounded-full font-medium">Taking Initiative</span>
+                        <span class="bg-slate-200 text-slate-800 px-4 py-2 rounded-full font-medium">Teamwork</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="my-24">
+            <h2 class="text-3xl font-bold text-center text-slate-800 mb-12">Education & Certifications</h2>
+            <p class="text-center text-slate-600 mb-12 max-w-3xl mx-auto">
+                Below are the details of Deepika's academic background and professional certifications. This information outlines the foundational knowledge from her degrees and the specialized skills acquired through certified training from industry leaders like Cisco, Pearson, and Oracle.
+            </p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all">
+                    <h3 class="font-bold text-lg text-slate-800">B.Sc in Computer Science</h3>
+                    <p class="text-slate-600">ADITYA DEGREE COLLEGE</p>
+                    <p class="text-sm text-slate-500">2021-2024 | CGPA 7.57</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all">
+                    <h3 class="font-bold text-lg text-slate-800">Intermediate</h3>
+                    <p class="text-slate-600">ST. ANNS JUNIOR COLLEGE</p>
+                    <p class="text-sm text-slate-500">2019-2021 | Marks 761</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all">
+                    <h3 class="font-bold text-lg text-slate-800">Secondary Education</h3>
+                    <p class="text-slate-600">ZP HIGH SCHOOL</p>
+                    <p class="text-sm text-slate-500">2019 | CGPA 8.8</p>
+                </div>
+                 <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all">
+                    <h3 class="font-bold text-lg text-slate-800">Database Foundations</h3>
+                    <p class="text-slate-600">Oracle</p>
+                    <p class="text-sm text-slate-500">2023</p>
+                </div>
+                 <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all">
+                    <h3 class="font-bold text-lg text-slate-800">MEPRO English & Communication</h3>
+                    <p class="text-slate-600">Pearson</p>
+                    <p class="text-sm text-slate-500">2022</p>
+                </div>
+                 <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all">
+                    <h3 class="font-bold text-lg text-slate-800">C Essentials</h3>
+                    <p class="text-slate-600">Cisco</p>
+                    <p class="text-sm text-slate-500">2021</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="my-24">
+            <h2 class="text-3xl font-bold text-center text-slate-800 mb-12">Featured Projects</h2>
+            <p class="text-center text-slate-600 mb-12 max-w-3xl mx-auto">
+                This area showcases key projects Deepika has worked on, demonstrating her ability to apply theoretical knowledge to practical, real-world challenges. These projects highlight her skills in areas like Python development and IoT with Raspberry Pi.
+            </p>
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-white rounded-xl p-8 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all">
+                    <h3 class="font-bold text-xl text-slate-800 mb-2">PIVOX - Personal Assistant</h3>
+                    <p class="text-slate-700">An implementation of a Voice Assistant on Raspberry Pi, demonstrating skills in hardware integration and software development for IoT devices.</p>
+                </div>
+                <div class="bg-white rounded-xl p-8 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all">
+                    <h3 class="font-bold text-xl text-slate-800 mb-2">Website Registration and Login</h3>
+                    <p class="text-slate-700">Implemented a secure user login and registration system using Python, focusing on back-end logic and data management.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-slate-800 text-white mt-16">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <h3 class="text-2xl font-bold mb-2">Get in Touch</h3>
+            <p class="mb-4">Feel free to reach out for collaborations or opportunities.</p>
+            <div class="flex justify-center items-center space-x-6">
+                <a href="mailto:deepikabandaru224@gmail.com" class="hover:text-red-300 transition-colors">deepikabandaru224@gmail.com</a>
+                <span>&bull;</span>
+                <a href="tel:+919392643671" class="hover:text-red-300 transition-colors">+91 93926 43671</a>
+                <span>&bull;</span>
+                <a href="https://linkedin.com/in/deepikabandaru" target="_blank" rel="noopener noreferrer" class="hover:text-red-300 transition-colors">LinkedIn</a>
+            </div>
+            <p class="text-sm text-slate-400 mt-8">&copy; 2025 Deepika Bandaru. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.5
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            navLinks.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            const skillsData = {
+                labels: ['C Language', 'Python', 'DBMS', 'MS Office'],
+                datasets: [{
+                    label: 'Technical Proficiency',
+                    data: [80, 85, 75, 90],
+                    backgroundColor: 'rgba(54, 73, 93, 0.6)',
+                    borderColor: 'rgba(54, 73, 93, 1)',
+                    borderWidth: 1
+                }]
+            };
+
+            const skillsChart = new Chart(ctx, {
+                type: 'bar',
+                data: skillsData,
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        let value = context.parsed.x;
+                                        if (value >= 85) label += 'Advanced';
+                                        else if (value >= 75) label += 'Proficient';
+                                        else label += 'Intermediate';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                display: false
+                            },
+                             ticks: {
+                                display: false
+                            }
+                        },
+                        y: {
+                           grid: {
+                                display: false
+                           },
+                           ticks: {
+                                font: {
+                                    size: 14,
+                                    weight: '500'
+                                },
+                                color: '#4A4A4A'
+                           }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
